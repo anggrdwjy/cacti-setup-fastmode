@@ -104,3 +104,20 @@ case $choice in
    
 6) exit
    ;;
+
+*)    echo "Sorry, Your Choice Not Available"
+esac
+echo "                                                  ";
+echo -n "Back to Menu? [y/n]: ";
+echo "                                                  ";
+read again;
+while [[ $again != 'Y' ]] && [[ $again != 'y' ]] && [[ $again != 'N' ]] && [[ $again != 'n' ]];
+do
+echo " Variable Not Available in Menu ";
+echo "                                                  ";
+echo -n "Back to Menu? [y/n]: ";
+echo "                                                  ";
+read again;
+done
+done 
+
