@@ -31,8 +31,8 @@ case $choice in
    systemctl enable --now apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
-   mv /etc/php/*/apache2/php.ini /etc/php/*/apache2/php.ini.bak
-   cp support/apache2/php.ini /etc/php/*/apache2/php.ini
+   mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
+   cp support/apache2/php.ini /etc/php/8.3/apache2/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
    sudo apt update
