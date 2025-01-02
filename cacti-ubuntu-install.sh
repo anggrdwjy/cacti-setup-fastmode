@@ -29,6 +29,9 @@ case $choice in
    sudo apt update
    sudo apt install unzip fping apache2 -y
    systemctl enable --now apache2
+   mv /var/www/html/index.html /var/www/html/index.html.bak
+   cp support/html-index.html /var/www/html/index.html
+   systemctl restart apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
    mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
