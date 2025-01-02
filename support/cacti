@@ -1,1 +1,0 @@
-*/5 * * * * www-data php /usr/share/cacti/site/poller.php >/dev/null 2>&1
