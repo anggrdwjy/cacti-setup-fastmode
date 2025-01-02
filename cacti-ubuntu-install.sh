@@ -73,9 +73,9 @@ case $choice in
    then
    sudo apt update
    git clone https://github.com/Cacti/plugin_weathermap.git
-   mv plugin_weathermap/ /var/www/html/cacti/plugins/weathermap/
-   chmod -R 777 /var/www/html/cacti/plugins/weathermap/
-   cp support/weathermap/config.php /var/www/html/cacti/plugins/weathermap/config.php
+   mv plugin_weathermap weathermap 
+   cp weathermap /var/www/html/cacti/plugins
+   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
    echo "                                                  ";
    echo "   ======== Weathermap Done Integration ========	   ";
