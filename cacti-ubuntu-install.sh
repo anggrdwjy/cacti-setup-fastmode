@@ -46,7 +46,6 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
-   sudo apt install git -y
    git clone https://github.com/Cacti/cacti.git
    mv cacti /var/www/html/cacti
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
