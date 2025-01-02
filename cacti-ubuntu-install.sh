@@ -34,6 +34,8 @@ case $choice in
    mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
    cp support/apache2/php.ini /etc/php/8.3/apache2/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.bak
+   cp support/50.server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    systemctl enable --now mariadb
    sudo apt update
    echo -n "Username Database Cacti : ";
