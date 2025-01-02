@@ -31,29 +31,32 @@ case $choice in
    systemctl enable --now apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
-   cp /etc/php/8.3/apache2/php.ini php.ini.backup
-   cp support/apache2/php.ini /etc/php/8.3/apache2
+   mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
+   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   mv /etc/php/8.3/cli/php.ini /etc/php/8.3/cli/php.ini.bak
+   cp support/cli-php.ini /etc/php/8.3/cli/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
-   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"\
-   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"\
-   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"\
-   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"\
+   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
+   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
+   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   cp support/50-server.cnf /etc/mysql/mariadb.conf.d/
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.bak
+   cp support/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
+   sudo apt install git -y
    git clone https://github.com/Cacti/cacti.git
    mv cacti /var/www/html
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
-   cp support/include/config.php /var/www/html/cacti/include
+   cp support/include-config.php /var/www/html/cacti/include/config.php
    chown -R www-data:www-data /var/www/html/cacti
-   cp support/cactid.service /etc/systemd/system
+   cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
-   systemctl daemon-reload
    systemctl --now enable cactid
-   systemctl restart apache2 mariadb
+   systemctl daemon-reload
    echo "                                                  ";
    echo "   ======== Cacti Success Installing Done ======== 	   ";
    echo "                                                  ";
