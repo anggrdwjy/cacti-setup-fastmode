@@ -11,89 +11,76 @@ clear
 echo "   __________________________________________________	";                                                            
 echo "                                                	      	";
 echo "   Options List :                                		";
-echo "   1) Install Apache2 and PHP        			";
-echo "   2) Install MariaDB Server        			";
-echo "   3) Create MariaDB Database                   		";
-echo "   4) Install Cacti Server                      		";
-echo "   5) Reboot Server	                   		";
-echo "   6) Exit		                      		";
+echo "   1) Install Cacti Fastmode        			";
+echo "   2) Install Cacti Weathermap        			";
+echo "   3) Reboot Server	                   		";
+echo "   4) Exit		                      		";
 echo "   __________________________________________________   	";
 echo "                                                          ";
 read -p "   Enter a number the options listed: " choice;
 echo "                                                        	";
 case $choice in              
 
-1) read -p "   Install Apache2 and PHP ? y/n :" -n 1 -r
+1) read -p "   Install Cacti Fastmode ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   apt-get update
-   apt-get install software-properties-common -y
-   apt-get install apache2 -y
-   apt-get install php php-mysql php-snmp php-gd php-xml php-curl php-mbstring php-gmp php-intl php-json -y
-   systemctl --now enable apache2
-   systemctl status apache2
-   echo "                                                  ";
-   echo "   ======== Apache2 and PHP Done ======== 	   ";
-   echo "                                                  ";
-   fi
-   ;;
-
-2) read -p "   Install MariaDB Server ? y/n :" -n 1 -r
-   echo "                                                  ";
-   echo "                                                  ";
-   if [[ ! $REPLY =~ ^[Nn]$ ]] 
-   then
-   apt-get install mariadb-server -y
-   systemctl --now enable mariadb
+   sudo apt update
+   sudo apt install unzip fping apache2 -y
+   systemctl enable --now apache2
+   sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   sudo apt install libapache2-mod-php
+   mv /etc/php/*/apache2/php.ini /etc/php/*/apache2/php.ini.bak
+   cp support/apache2/php.ini /etc/php/*/apache2/php.ini
+   sudo apt install mariadb-server mariadb-client-compat -y
+   systemctl enable --now mariadb
+   sudo apt update
+   echo -n "Username Database Cacti : ";
+   read usercacti
+   echo -n "Password Database Cacti : ";
+   read passcacti
+   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO '$usercacti'@'localhost' IDENTIFIED BY '$passcacti';"
+   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
+   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+   mysql -e "FLUSH PRIVILEGES;"
+   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
+   sudo apt install snmp snmpd rrdtool -y
+   sudo apt install git -y
+   git clone https://github.com/Cacti/cacti.git
+   mv cacti /var/www/html/cacti
+   mysql -u root cacti < /var/www/html/cacti/cacti.sql
+   chown -R www-data:www-data /var/www/html/cacti
+   cp support/cactid.service /etc/systemd/system/cactid.service
+   touch /etc/default/cactid
+   systemctl --now enable cactid
+   systemctl daemon-reload
    echo "                                                  ";
-   echo "   ======== MariaDB Installing Done ========	   ";
+   echo "   ======== Cacti Success Installing Done ======== 	   ";
    echo "                                                  ";
    fi
    ;;
 
-3) read -p "   Create Database MariaDB ? y/n :" -n 1 -r
+2) read -p "   Install Cacti Weathermap ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   mysql -u root
-   CREATE DATABASE cacti;
-   CREATE USER 'cacti'@'localhost' IDENTIFIED BY 'baseball'; 
-   GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost';
-   FLUSH PRIVILEGES;
-   EXIT;
+   sudo apt update
+   git clone https://github.com/Cacti/plugin_weathermap.git
+   mv plugin_weathermap/ /var/www/html/cacti/plugins/weathermap/
+   chmod -R 777 /var/www/html/cacti/plugins/weathermap/
+   cp support/weathermap/config.php /var/www/html/cacti/plugins/weathermap/config.php
+   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
    echo "                                                  ";
-   echo "   ======== Database Create Done ========	   ";
-   echo "                                                  ";
-   fi
-   ;;
-
-4) read -p "   Install Cacti Server ? y/n :" -n 1 -r
-   echo "                                                  ";
-   echo "                                                  ";
-   if [[ ! $REPLY =~ ^[Nn]$ ]] 
-   then
-   apt update
-   apt install cacti cacti-spine -y
-   mv /etc/apache2/conf-available/cacti.conf /etc/apache2/conf-available/cacti.conf.bak
-   cp support/cacti.conf /etc/apache2/conf-available/cacti.conf
-   a2enconf cacti
-   mv /etc/cron.d/cacti /etc/cron.d/cacti.bak
-   cp support/cacti /etc/cron.d/cacti
-   mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
-   cp support/000-default.conf /etc/apache2/sites-available/000-default.conf
-   chown -R www-data:www-data /usr/share/cacti/site/rra /usr/share/cacti/site/log
-   systemctl restart apache2
-   echo "                                                  ";
-   echo "   ======== Cacti Installing Done ========	   ";
+   echo "   ======== Weathermap Done Integration ========	   ";
    echo "                                                  ";
    fi
    ;;
 
-5) read -p "   Reboot Your Server ? y/n :" -n 1 -r
+3) read -p "   Reboot Your Server ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -102,7 +89,7 @@ case $choice in
    fi
    ;;
    
-6) exit
+4) exit
    ;;
 
 *)    echo "Sorry, Your Choice Not Available"
