@@ -118,8 +118,8 @@ character-set-collations = utf8mb4=uca1400_ai_ci
 [mariadb-11.4]
 innodb_file_format=Barracuda
 innodb_large_prefix=1
-#collation-server=utf8mb4_unicode_ci
-#character-set-server=utf8mb4
+#character-set-server = utf8mb4
+#collation-server = utf8mb4_general_ci
 innodb_doublewrite=OFF
 max_heap_table_size=128M
 tmp_table_size=128M
