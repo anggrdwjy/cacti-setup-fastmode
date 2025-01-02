@@ -1,3 +1,4 @@
+#
 # These groups are read by MariaDB server.
 # Use it for options that only the server (but not clients) should see
 
@@ -47,7 +48,7 @@ bind-address            = 127.0.0.1
 # and be writable by the mysql user, e.g.:
 # $ sudo mkdir -m 2750 /var/log/mysql
 # $ sudo chown mysql /var/log/mysql
-2A
+
 # Both location gets rotated by the cronjob.
 # Be aware that this log type is a performance killer.
 # Recommend only changing this at runtime for short testing periods if needed!
@@ -66,7 +67,7 @@ bind-address            = 127.0.0.1
 #log-queries-not-using-indexes
 #log_slow_min_examined_row_limit = 1000
 
-2A# The following can be used as easy to replay backup logs or for replication.
+# The following can be used as easy to replay backup logs or for replication.
 # note: if you are setting up a replica, see README.Debian about other
 #       settings you may need to change.
 #server-id              = 1
@@ -116,6 +117,7 @@ character-set-collations = utf8mb4=uca1400_ai_ci
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
 [mariadb-11.4]
+
 innodb_file_format=Barracuda
 innodb_large_prefix=1
 #character-set-server = utf8mb4
