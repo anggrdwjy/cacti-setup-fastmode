@@ -116,3 +116,18 @@ character-set-collations = utf8mb4=uca1400_ai_ci
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
 [mariadb-11.4]
+innodb_file_format=Barracuda
+innodb_large_prefix=1
+#collation-server=utf8mb4_unicode_ci
+#character-set-server=utf8mb4
+innodb_doublewrite=OFF
+max_heap_table_size=128M
+tmp_table_size=128M
+join_buffer_size=128M
+innodb_buffer_pool_size=1G
+innodb_flush_log_at_timeout=3
+innodb_read_io_threads=32
+innodb_write_io_threads=16
+innodb_io_capacity=5000
+innodb_io_capacity_max=10000
+innodb_buffer_pool_instances=9
