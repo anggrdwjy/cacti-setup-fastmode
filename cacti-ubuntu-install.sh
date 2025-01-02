@@ -38,14 +38,11 @@ case $choice in
    cp support/50.server.cnf /etc/mysql/mariadb.conf.d
    systemctl enable --now mariadb
    sudo apt update
-   echo -n "Password Database Cacti : ";
-   read passcacti
-   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
-   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY '$passcacti';"
-   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
-   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"\
+   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"\
+   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"\
+   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"\
    mysql -e "FLUSH PRIVILEGES;"
-   sudo clear
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
