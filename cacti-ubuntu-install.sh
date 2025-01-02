@@ -40,8 +40,7 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"\
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"\
    mysql -e "FLUSH PRIVILEGES;"
-   cp /etc/mysql/mariadb.conf.d/50-server.cnf 50-server.cnf.backup
-   cp support/50.server.cnf /etc/mysql/mariadb.conf.d
+   cp support/50-server.cnf /etc/mysql/mariadb.conf.d/
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
