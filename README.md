@@ -26,11 +26,11 @@ Before using this program, make sure to install `git` to maximize the program. I
 
 ## Features
 * Fastmode Installer
-* Web Server Apache2
-* Database MariaDB
-* PHP 8.3
-* Cacti Graphing Solution
-* Plugins Cacti Weathermap
+* Apache2
+* MariaDB 11.4.x
+* PHP Language 8.3
+* Cacti Server 1.3.x
+* Plugins Cacti Weathermap 1.2.x
 
 ## Support OS
 * Ubuntu 24.04
