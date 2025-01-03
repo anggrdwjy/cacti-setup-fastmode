@@ -36,9 +36,7 @@ Before using this program, make sure to install `git` to maximize the program. I
 * Ubuntu 24.04
 * Ubuntu 24.10
 
-## Case
-
-Edit Username and Password Database 
+## Edit Username and Password Database
 ```
 mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';" //'username'@'localhost' IDENTIFIED BY 'password'//
 ```
