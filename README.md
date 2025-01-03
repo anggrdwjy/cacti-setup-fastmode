@@ -37,11 +37,12 @@ Before using this program, make sure to install `git` to maximize the program. I
 * Ubuntu 24.10
 
 ## Edit Username and Password
-nano 'cacti-setup-fastmode.sh'
+
+nano cacti-setup-fastmode.sh
 ```
-mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';" //'username'@'localhost' IDENTIFIED BY 'password'//
+mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
 ```
-nano '/var/www/html/cacti/include/config.php'
+nano /var/www/html/cacti/include/config.php
 ```
 $database_type        = 'mysql';
 $database_default     = 'cacti';
