@@ -36,9 +36,27 @@ Before using this program, make sure to install `git` to maximize the program. I
 * Ubuntu 24.04
 * Ubuntu 24.10
 
-## Edit Username and Password Database
+## Edit Username and Password
+nano 'cacti-setup-fastmode.sh'
 ```
 mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';" //'username'@'localhost' IDENTIFIED BY 'password'//
+```
+nano '/var/www/html/cacti/include/config.php'
+```
+$database_type        = 'mysql';
+$database_default     = 'cacti';
+$database_hostname    = 'localhost';
+$database_username    = 'cacti';
+$database_password    = 'baseball';
+$database_port        = '3306';
+$database_retries     = 5;
+$database_ssl         = false;
+$database_ssl_key     = '';
+$database_ssl_cert    = '';
+$database_ssl_ca      = '';
+$database_ssl_capath  = '';
+$database_ssl_verify_server_cert = true;
+$database_persist     = false;
 ```
 
 ## Installing Program
