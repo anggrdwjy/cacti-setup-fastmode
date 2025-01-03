@@ -32,6 +32,7 @@ echo "   Options List :                                		";
 echo "   1) Install Cacti Fastmode        			";
 echo "   2) Install Cacti Plugins Weathermap   		";
 echo "   3) Reboot Server	                   		";
+echo "   4) Exit         	                   		";
 echo "   __________________________________________________   	 ";
 echo "                                                          ";
 read -p "   Enter a number the options listed: " choice;
