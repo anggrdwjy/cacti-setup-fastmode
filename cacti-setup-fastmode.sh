@@ -57,8 +57,8 @@ case $choice in
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
-   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
-   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
+   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
+   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"     //edit 'username'@'localhost' IDENTIFIED BY 'password'//
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
