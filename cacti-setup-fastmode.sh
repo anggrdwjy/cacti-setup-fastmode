@@ -22,24 +22,61 @@ echo "    / __/ / /_/ (__  ) /_/ / / / / / /_/ / /_/ /  __/  _/ // / / (__  ) /_
 echo "   /_/    \__,_/____/\__/_/ /_/ /_/\____/\__,_/\___/  /___/_/ /_/____/\__/\__,_/_/_/\___/_/        ";
 echo "												                                 ";
 echo "												                                 ";
-echo "   Version: 1.0 - 03/01/2025                            	            ";
+echo "   Version: 1.0.1 - 04/01/2025                            	            ";
 echo "   Developer: https://github.com/anggrdwjy              	            ";
 echo "   Support OS : Ubuntu 24.04 - 24.10                      	         ";
 echo "                                                        	            ";
 echo "   __________________________________________________	";                                                            
 echo "                                                	      	";
 echo "   Options List :                                		";
-echo "   1) Install Cacti Fastmode        			";
-echo "   2) Install Cacti Plugins Weathermap   		";
-echo "   3) Reboot Server	                   		";
-echo "   4) Exit         	                   		";
+echo "   1) Install LAMP, SNMP, & RDTool            			";
+echo "   2) Install Cacti Fastmode        			";
+echo "   3) Install Cacti Plugins Weathermap   		";
+echo "   4) Reboot Server	                   		";
+echo "   5) Exit         	                   		";
 echo "   __________________________________________________   	 ";
 echo "                                                          ";
 read -p "   Enter a number the options listed: " choice;
 echo "                                                        	";
 case $choice in              
 
-1) read -p "   Install Cacti Fastmode ? y/n :" -n 1 -r
+1) read -p "   Install LAMP, SNMP, & RDTool ? y/n :" -n 1 -r
+   echo "                                                  ";
+   echo "                                                  ";
+   if [[ ! $REPLY =~ ^[Nn]$ ]] 
+   then
+   sudo apt update
+   sudo apt install unzip fping apache2 -y
+   systemctl enable --now apache2
+   mv /var/www/html/index.html /var/www/html/index.html.bak
+   cp support/html-index.html /var/www/html/index.html
+   systemctl restart apache2
+   sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   sudo apt install libapache2-mod-php
+   mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
+   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   mv /etc/php/8.3/cli/php.ini /etc/php/8.3/cli/php.ini.bak
+   cp support/cli-php.ini /etc/php/8.3/cli/php.ini
+   sudo apt install mariadb-server mariadb-client-compat -y
+   systemctl enable --now mariadb
+   mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
+   mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
+   mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
+   mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+   mysql -e "FLUSH PRIVILEGES;"
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.bak
+   cp support/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+   systemctl restart apache2
+   sudo apt install snmp snmpd rrdtool -y
+   systemctl daemon-reload
+   echo "                                                  ";
+   echo "   ======== Cacti Success Installing Done ======== 	   ";
+   echo "                                                  ";
+   fi
+   ;;
+
+2) read -p "   Install Cacti Fastmode ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -83,8 +120,8 @@ case $choice in
    echo "                                                  ";
    fi
    ;;
-
-2) read -p "   Install Cacti Weathermap ? y/n :" -n 1 -r
+   
+3) read -p "   Install Cacti Weathermap ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -102,7 +139,7 @@ case $choice in
    fi
    ;;
 
-3) read -p "   Reboot Your Server ? y/n :" -n 1 -r
+4) read -p "   Reboot Your Server ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -111,7 +148,7 @@ case $choice in
    fi
    ;;
    
-4) exit
+5) exit
    ;;
 
 *)    echo "Sorry, Your Choice Not Available"
