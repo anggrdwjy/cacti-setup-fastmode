@@ -92,6 +92,8 @@ case $choice in
    sudo apt update
    git clone https://github.com/Cacti/plugin_weathermap.git
    mv plugin_weathermap /var/www/html/cacti/plugins/weathermap
+   chmod -R 777 /var/www/html/cacti/plugins/weathermap/
+   systemctl restart cactid
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
    echo "                                                  ";
