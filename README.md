@@ -86,6 +86,20 @@ chmod -R 777 *
 * https://github.com/Cacti/cacti.git
 * https://github.com/Cacti/plugin_weathermap.git
 
+## Error
+```
+2025-01-04 00:34:14 - WEBUI WARNING: Loading plugin INFO file failed. INFO file does not exist.
+2025-01-04 00:34:14 - WEBUI WARNING: Loading plugin INFO file failed. INFO file does not exist.
+2025-01-04 00:34:14 - PHP ERROR WARNING Backtrace: (/plugins/weathermap/weathermap-cacti-plugin-editor.php[147]:drawMap(), /plugins/weathermap/lib/editor.actions.php[129]:WeatherMap->DrawMap(), /plugins/weathermap/lib/WeatherMap.class.php[3512]:file_get_contents(), CactiErrorHandler())
+2025-01-04 00:34:14 - ERROR PHP WARNING in Plugin 'weathermap': file_get_contents(configs/simple.conf): Failed to open stream: No such file or directory in file: /var/www/html/cacti/plugins/weathermap/lib/WeatherMap.class.php on line: 3512
+2025-01-04 00:34:14 - PHP ERROR WARNING Backtrace: (/plugins/weathermap/weathermap-cacti-plugin-editor.php[147]:drawMap(), /plugins/weathermap/lib/editor.actions.php[110]:WeatherMap->__construct(), /plugins/weathermap/lib/WeatherMap.class.php[372]:WeatherMap->Reset(), /plugins/weathermap/lib/WeatherMap.class.php[531]:WeatherMap->LoadPlugins(), /plugins/weathermap/lib/WeatherMap.class.php[826]:opendir(), CactiErrorHandler())
+2025-01-04 00:34:14 - ERROR PHP WARNING in Plugin 'weathermap': opendir(/var/www/html/cacti/plugins/weathermap/lib/lib/post): Failed to open directory: No such file or directory in file: /var/www/html/cacti/plugins/weathermap/lib/WeatherMap.class.php on line: 826
+2025-01-04 00:34:14 - PHP ERROR WARNING Backtrace: (/plugins/weathermap/weathermap-cacti-plugin-editor.php[147]:drawMap(), /plugins/weathermap/lib/editor.actions.php[110]:WeatherMap->__construct(), /plugins/weathermap/lib/WeatherMap.class.php[372]:WeatherMap->Reset(), /plugins/weathermap/lib/WeatherMap.class.php[530]:WeatherMap->LoadPlugins(), /plugins/weathermap/lib/WeatherMap.class.php[826]:opendir(), CactiErrorHandler())
+2025-01-04 00:34:14 - ERROR PHP WARNING in Plugin 'weathermap': opendir(/var/www/html/cacti/plugins/weathermap/lib/lib/pre): Failed to open directory: No such file or directory in file: /var/www/html/cacti/plugins/weathermap/lib/WeatherMap.class.php on line: 826
+2025-01-04 00:34:14 - PHP ERROR WARNING Backtrace: (/plugins/weathermap/weathermap-cacti-plugin-editor.php[147]:drawMap(), /plugins/weathermap/lib/editor.actions.php[110]:WeatherMap->__construct(), /plugins/weathermap/lib/WeatherMap.class.php[372]:WeatherMap->Reset(), /plugins/weathermap/lib/WeatherMap.class.php[529]:WeatherMap->LoadPlugins(), /plugins/weathermap/lib/WeatherMap.class.php[826]:opendir(), CactiErrorHandler())
+2025-01-04 00:34:14 - ERROR PHP WARNING in Plugin 'weathermap': opendir(/var/www/html/cacti/plugins/weathermap/lib/lib/datasources): Failed to open directory: No such file or directory in file: /var/www/html/cacti/plugins/weathermap/lib/WeatherMap.class.php on line: 826
+```
+
 ## Bugs
 
 Please open an issue on GitHub with as much information as possible if you found a bug.
