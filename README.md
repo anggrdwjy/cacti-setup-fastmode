@@ -86,7 +86,7 @@ chmod -R 777 *
 * https://github.com/Cacti/cacti.git
 * https://github.com/Cacti/plugin_weathermap.git
 
-## Error
+## Error Issue
 ```
 2025-01-04 00:34:14 - WEBUI WARNING: Loading plugin INFO file failed. INFO file does not exist.
 2025-01-04 00:34:14 - WEBUI WARNING: Loading plugin INFO file failed. INFO file does not exist.
