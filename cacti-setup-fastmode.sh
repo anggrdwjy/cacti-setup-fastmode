@@ -93,8 +93,8 @@ case $choice in
    sudo apt update
    cp support/plugin_weathermap-1.3.zip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
    unzip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
-   mv plugin_weathermap-1.3 weathermap
-   chmod -R 777 /var/www/html/cacti/plugins/weathermap/
+   mv /var/www/html/cacti/plugins/plugin_weathermap-1.3 /var/www/html/cacti/plugins/weathermap
+   chmod -R 777 /var/www/html/cacti/plugins/
    systemctl restart cactid
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
