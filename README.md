@@ -1,5 +1,4 @@
-## This Tools Fastmode Setup Cacti Graphing Monitoring with Cacti Weathermap Plugins
-
+## This Tools Fastmode Setup Cacti Server With Spine and Plugins Weathermap
 ```                                                                                                   
       _____         __  _   ____                                     
      / ___/__ _____/ /_(_) / __/__ _____  _____ ____                  
