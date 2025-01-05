@@ -111,17 +111,17 @@ expire_logs_days        = 10
 # This group is only read by MariaDB servers, not by MySQL.
 # If you use the same .cnf file for MySQL and MariaDB,
 # you can put MariaDB-only options here
-[mariadbd]
+#[mariadbd]
 
 # This group is only read by MariaDB-11.4 servers.
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
-[mariadb-11.4]
+[mariadb]
 
 innodb_file_format=Barracuda
 innodb_large_prefix=1
 character-set-server=utf8mb4
-collation-server=utf8mb4_unicode_ci
+collation-server=utf8mb4_unicode_ci   
 innodb_doublewrite=OFF
 max_heap_table_size=128M
 tmp_table_size=128M
