@@ -68,9 +68,10 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
-   sudo apt install git -y
-   git clone https://github.com/Cacti/cacti.git
-   mv cacti /var/www/html
+   cp support/cacti-release-1.2.28.zip /var/www/html/cacti-release-1.2.28.zip
+   unzip /var/www/html/cacti-release-1.2.28.zip
+   mv /var/www/html/cacti-release-1.2.28 /var/www/html/cacti
+   chmod -R 777 /var/www/html/
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    cp support/include-config.php /var/www/html/cacti/include/config.php
    chown -R www-data:www-data /var/www/html/cacti
@@ -90,8 +91,9 @@ case $choice in
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
    sudo apt update
-   git clone https://github.com/Cacti/plugin_weathermap.git
-   mv plugin_weathermap /var/www/html/cacti/plugins/weathermap
+   cp support/plugin_weathermap-1.3.zip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
+   unzip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
+   mv plugin_weathermap-1.3 weathermap
    chmod -R 777 /var/www/html/cacti/plugins/weathermap/
    systemctl restart cactid
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
