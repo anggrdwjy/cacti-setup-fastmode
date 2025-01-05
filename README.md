@@ -11,7 +11,7 @@
    /___/\__/\__/\_,_/ .__/ /_/  \_,_/___|__/_/_/_/\___/\_,_/\__/     
                    /_/
 
-      Version: 1.0.2 - 05/01/2025                            	        
+      Version: 1.0.3 - 06/01/2025                            	        
       Developer: https://github.com/anggrdwjy              	            
       Support OS : Ubuntu 24.04 - 24.10                      	         "
                                                                                            
@@ -96,6 +96,7 @@ http://ip-address/cacti
 
 * https://github.com/Cacti/cacti.git
 * https://github.com/Cacti/plugin_weathermap.git
+* https://github.com/Cacti/spine
 
 ## Bugs
 
