@@ -22,12 +22,12 @@
 Before using this program, make sure to install `git` to maximize the program. I am not responsible for any consequences caused by this program. It is recommended to use this script when the new server is installed with minimal 2CPU. RAM 4GB and Disk 20GB. This program has been tested on Ubuntu 24.04 - 24.10.
 
 ## Features
-* Fastmode Installer
+* Setup Fastmode
 * Apache2
 * MariaDB 11.4.x
 * PHP Language 8.3
-* Cacti Server 1.3.x
-* Plugins Cacti Weathermap 1.2.x
+* Cacti Server 1.2.28
+* Plugins Cacti Weathermap 1.3.0
 
 ## Support OS
 * Ubuntu 24.04
