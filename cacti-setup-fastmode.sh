@@ -77,6 +77,9 @@ case $choice in
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
+   systemctl restart apache2
+   systemctl restart mariadb
+   systemctl restart cactid
    systemctl daemon-reload
    echo "                                                  ";
    echo "   ======== Cacti Success Installing Done ======== 	   ";
