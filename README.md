@@ -82,7 +82,7 @@ chmod -R 777 *
 ./cacti-setup-fastmode.sh
 ```
 
-## Access Cacti Server {Non-SSL]
+## Access Cacti Server [Non-SSL]
 ```
 http://ip-address/cacti
 ```
