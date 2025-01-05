@@ -93,6 +93,18 @@ case $choice in
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
    systemctl restart cactid
+   sudo apt update
+   sudo apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
+   unzip support/spine-release-1.2.20.zip
+   cd spine-release-1.2.20
+   sudo ./bootstrap
+   sudo ./configure
+   sudo make
+   sudo make install
+   sudo ./configure --prefix=/opt/spine
+   cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
+   chmod u+s spine
+   chown root:root spine
    echo "                                                  ";
    echo "   ======== Weathermap Done Integration ========	   ";
    echo "                                                  ";
