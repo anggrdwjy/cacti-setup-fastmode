@@ -46,7 +46,6 @@ case $choice in
    mv /var/www/html/index.html /var/www/html/index.html.bak
    cp support/html-index.html /var/www/html/index.html
    systemctl --now enable apache2
-   systemctl restart apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
    mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
@@ -55,7 +54,6 @@ case $choice in
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
-   systemctl restart mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
    mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
