@@ -23,10 +23,11 @@ Before using this program, make sure to install `git` to maximize the program. I
 
 ## Features
 * Setup Fastmode
-* Apache2
-* MariaDB 11.4.x
+* Web Server Apache2
+* Database MariaDB 11.4
 * PHP Language 8.3
 * Cacti Server 1.2.28
+* Cacti Spine 1.2.20
 * Plugins Cacti Weathermap 1.3.0
 
 ## Support OS
@@ -37,15 +38,15 @@ Before using this program, make sure to install `git` to maximize the program. I
 
 nano cacti-setup-fastmode.sh
 ```
-mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
+mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"      //Edit Username 'cacti' and Password 'baseball'//
 ```
 nano /var/www/html/cacti/include/config.php
 ```
 $database_type        = 'mysql';
 $database_default     = 'cacti';
 $database_hostname    = 'localhost';
-$database_username    = 'cacti';
-$database_password    = 'baseball';
+$database_username    = 'cacti';      //Edit Username//
+$database_password    = 'baseball';   //Edit Password//
 $database_port        = '3306';
 $database_retries     = 5;
 $database_ssl         = false;
@@ -55,6 +56,14 @@ $database_ssl_ca      = '';
 $database_ssl_capath  = '';
 $database_ssl_verify_server_cert = true;
 $database_persist     = false;
+```
+nano /usr/local/spine/etc/spine.conf
+```
+DB_Host       localhost
+DB_Database   cacti     
+DB_User       cacti       //Edit Username//
+DB_Pass       baseball    //Edit Password//
+DB_Port       3306
 ```
 
 ## Installing Program
