@@ -69,7 +69,7 @@ case $choice in
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
-   mv support/cacti-release-1.2.28 /var/www/html/cacti
+   mv cacti-release-1.2.28/ /var/www/html/cacti/
    chmod -R 777 /var/www/html/
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    cp support/include-config.php /var/www/html/cacti/include/config.php
