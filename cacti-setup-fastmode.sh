@@ -18,17 +18,18 @@ echo "    _\ \/ -_) __/ // / _ \  / _// _ ( _-< __/    \/ _ \/ _  / -_)    ";
 echo "   /___/\__/\__/\_,_/ .__/ /_/  \_,_/___|__/_/_/_/\___/\_,_/\__/     ";
 echo "                   /_/                                               ";
 echo "												                                 ";
-echo "   Version: 1.0.2 - 05/01/2025                            	         ";
+echo "   Version: 1.0.3 - 06/01/2025                            	         ";
 echo "   Developer: https://github.com/anggrdwjy              	            ";
 echo "   Support OS : Ubuntu 24.04 - 24.10                      	         ";
 echo "                                                        	            ";
 echo "   __________________________________________________	";                                                            
 echo "                                                	   ";
 echo "   Options List :                                		";
-echo "   1) Install Cacti Server Fastmode      		";
-echo "   2) Install Cacti Plugins Weathermap   		";
-echo "   3) Reboot Server	                   		";
-echo "   4) Exit         	                   		";
+echo "   1) Install Cacti Server 1.2.28 Fastmode     		   ";
+echo "   2) Install Cacti Plugins Weathermap 1.3.0 	      ";
+echo "   3) Install Cacti Spine 1.2.20 		               ";
+echo "   4) Reboot Server	                   		";
+echo "   5) Exit         	                   		";
 echo "   __________________________________________________ ";
 echo "                                                      ";
 read -p "   Enter a number the options listed: " choice;
@@ -80,7 +81,7 @@ case $choice in
    fi
    ;;
    
-2) read -p "   Install Cacti Weathermap ? y/n :" -n 1 -r
+2) read -p "   Install Plugin Weathermap 1.3.0 ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -93,6 +94,17 @@ case $choice in
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
    systemctl restart cactid
+   echo "                                                  ";
+   echo "   ======== Plugin Weathermap Done Integration ========	   ";
+   echo "                                                  ";
+   fi
+   ;;
+
+3) read -p "   Install Spine 1.2.20 ? y/n :" -n 1 -r
+   echo "                                                  ";
+   echo "                                                  ";
+   if [[ ! $REPLY =~ ^[Nn]$ ]] 
+   then
    sudo apt update
    sudo apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
    unzip support/spine-release-1.2.20.zip
@@ -102,16 +114,17 @@ case $choice in
    sudo make
    sudo make install
    sudo ./configure --prefix=/opt/spine
+   cd ..
    cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
    chmod u+s spine
    chown root:root spine
    echo "                                                  ";
-   echo "   ======== Weathermap Done Integration ========	   ";
+   echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
    fi
    ;;
-
-3) read -p "   Reboot Your Server ? y/n :" -n 1 -r
+   
+4) read -p "   Reboot Your Server ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -120,7 +133,7 @@ case $choice in
    fi
    ;;
    
-4) exit
+5) exit
    ;;
 
 *)    echo "Sorry, Your Choice Not Available"
