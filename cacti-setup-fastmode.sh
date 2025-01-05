@@ -49,6 +49,7 @@ case $choice in
    systemctl enable --now apache2
    mv /var/www/html/index.html /var/www/html/index.html.bak
    cp support/html-index.html /var/www/html/index.html
+   systemctl --now enable apache2
    systemctl restart apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
@@ -58,6 +59,7 @@ case $choice in
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
+   systemctl restart mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
    mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
@@ -66,7 +68,6 @@ case $choice in
    mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.bak
    cp support/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-   systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
    mv cacti-release-1.2.28/ /var/www/html/cacti/
@@ -77,8 +78,6 @@ case $choice in
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
-   systemctl restart apache2
-   systemctl restart mariadb
    systemctl restart cactid
    systemctl daemon-reload
    echo "                                                  ";
@@ -99,10 +98,7 @@ case $choice in
    systemctl restart cactid
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
-   systemctl restart apache2
-   systemctl restart mariadb
    systemctl restart cactid
-   systemctl daemon-reload
    echo "                                                  ";
    echo "   ======== Weathermap Done Integration ========	   ";
    echo "                                                  ";
