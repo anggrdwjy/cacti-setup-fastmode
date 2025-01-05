@@ -68,9 +68,8 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    systemctl restart apache2
    sudo apt install snmp snmpd rrdtool -y
-   cp support/cacti-release-1.2.28.zip /var/www/html/cacti-release-1.2.28.zip
-   unzip /var/www/html/cacti-release-1.2.28.zip
-   mv /var/www/html/cacti-release-1.2.28 /var/www/html/cacti
+   unzip support/cacti-release-1.2.28.zip
+   cp cacti-release-1.2.28 /var/www/html/cacti
    chmod -R 777 /var/www/html/
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    cp support/include-config.php /var/www/html/cacti/include/config.php
