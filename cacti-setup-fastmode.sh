@@ -22,7 +22,7 @@ echo "    / __/ / /_/ (__  ) /_/ / / / / / /_/ / /_/ /  __/  _/ // / / (__  ) /_
 echo "   /_/    \__,_/____/\__/_/ /_/ /_/\____/\__,_/\___/  /___/_/ /_/____/\__/\__,_/_/_/\___/_/        ";
 echo "												                                 ";
 echo "												                                 ";
-echo "   Version: 1.0.1 - 04/01/2025                            	            ";
+echo "   Version: 1.0.2 - 04/01/2025                            	            ";
 echo "   Developer: https://github.com/anggrdwjy              	            ";
 echo "   Support OS : Ubuntu 24.04 - 24.10                      	         ";
 echo "                                                        	            ";
@@ -93,13 +93,16 @@ case $choice in
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
    sudo apt update
-   cp support/plugin_weathermap-1.3.zip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
-   unzip /var/www/html/cacti/plugins/plugin_weathermap-1.3.zip
-   mv /var/www/html/cacti/plugins/plugin_weathermap-1.3 /var/www/html/cacti/plugins/weathermap
+   unzip support/plugin_weathermap-1.3.zip
+   mv plugin_weathermap-1.3/ /var/www/html/cacti/plugins/weathermap/
    chmod -R 777 /var/www/html/cacti/plugins/
    systemctl restart cactid
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
+   systemctl restart apache2
+   systemctl restart mariadb
+   systemctl restart cactid
+   systemctl daemon-reload
    echo "                                                  ";
    echo "   ======== Weathermap Done Integration ========	   ";
    echo "                                                  ";
