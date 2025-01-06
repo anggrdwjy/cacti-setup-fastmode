@@ -18,7 +18,7 @@
 
 ## Information
 
-Before using this program, make sure to update the repository 'sudo apt update' and install git 'sudo apt install git -y' to maximize the running of the program. I am not responsible for any consequences caused by this program. It is recommended to use this script when a new server is installed with a minimum of 2CPUs. 4GB RAM and 20GB Disk. The program has been tested on Ubuntu 24.04 - 24.10.
+Before using this program, make sure to update the repository `sudo apt update` and install git `sudo apt install git -y` to maximize the running of the program. I am not responsible for any consequences caused by this program. It is recommended to use this script when a new server is installed with a minimum of 2CPUs. 4GB RAM and 20GB Disk. The program has been tested on Ubuntu 24.04 - 24.10.
 
 ## Features
 * Setup Fastmode
