@@ -90,7 +90,7 @@ http://ip-address/cacti
 
 ## NTP Clock Adjustment
 ```
-sudo timedatectl list-timezones //Search Timezone//
+sudo timedatectl list-timezones             //Search Timezone//
 sudo timedatectl set-timezone Asia/Jakarta 
 sudo timedatectl set-ntp on
 ```
