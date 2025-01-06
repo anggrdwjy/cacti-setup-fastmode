@@ -116,8 +116,8 @@ case $choice in
    sudo ./configure --prefix=/opt/spine
    cd ..
    cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
-   chmod u+s spine
-   chown root:root spine
+   chown root:root /usr/local/spine/bin/spine
+   chmod +s /usr/local/spine/bin/spine
    echo "                                                  ";
    echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
