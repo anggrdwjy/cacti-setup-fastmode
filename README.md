@@ -10,15 +10,15 @@
    /___/\__/\__/\_,_/ .__/ /_/  \_,_/___|__/_/_/_/\___/\_,_/\__/     
                    /_/
 
-      Version: 1.0.3 - 06/01/2025                            	        
+      Version: 1.0.4 - 06/01/2025                            	        
       Developer: https://github.com/anggrdwjy              	            
-      Support OS : Ubuntu 24.04 - 24.10                      	         "
+      Support OS : Ubuntu 24.04 - 24.10                      	         
                                                                                            
 ```
 
 ## Information
 
-Before using this program, make sure to install `git` to maximize the program. I am not responsible for any consequences caused by this program. It is recommended to use this script when the new server is installed with minimal 2CPU. RAM 4GB and Disk 20GB. This program has been tested on Ubuntu 24.04 - 24.10.
+Before using this program, make sure to update the repository 'sudo apt update' and install git 'sudo apt install git -y' to maximize the running of the program. I am not responsible for any consequences caused by this program. It is recommended to use this script when a new server is installed with a minimum of 2CPUs. 4GB RAM and 20GB Disk. The program has been tested on Ubuntu 24.04 - 24.10.
 
 ## Features
 * Setup Fastmode
@@ -37,7 +37,7 @@ Before using this program, make sure to install `git` to maximize the program. I
 
 nano cacti-setup-fastmode.sh
 ```
-mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"      //Edit Username 'cacti' and Password 'baseball'//
+mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"      //Edit Username `cacti` and Password `baseball`//
 ```
 nano /var/www/html/cacti/include/config.php
 ```
@@ -81,7 +81,9 @@ chmod -R 777 *
 ./cacti-setup-fastmode.sh
 ```
 
-## Access Cacti Server [Non-SSL]
+## Default Access Web Server Cacti
+
+Username : `admin` | Password : `admin`
 ```
 http://ip-address/cacti
 ```
