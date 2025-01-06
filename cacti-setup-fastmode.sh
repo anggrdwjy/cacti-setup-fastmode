@@ -42,6 +42,8 @@ case $choice in
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
    sudo apt update
+   sudo timedatectl set-timezone Asia/Jakarta
+   sudo timedatectl set-ntp on
    sudo apt install unzip fping apache2 -y
    systemctl enable --now apache2
    mv /var/www/html/index.html /var/www/html/index.html.bak
