@@ -45,7 +45,6 @@ case $choice in
    sudo timedatectl set-timezone Asia/Jakarta
    sudo timedatectl set-ntp on
    sudo apt install unzip fping apache2 -y
-   systemctl enable --now apache2
    mv /var/www/html/index.html /var/www/html/index.html.bak
    cp support/html-index.html /var/www/html/index.html
    systemctl --now enable apache2
