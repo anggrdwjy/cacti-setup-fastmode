@@ -65,7 +65,7 @@ case $choice in
    chmod -R 777 /var/www/html/
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    cp support/include-config.php /var/www/html/cacti/include/config.php
-   chown -R $USER:$USER /var/www/html/cacti
+   chown -R www-data:www-data /var/www/html/cacti
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
