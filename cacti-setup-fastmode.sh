@@ -45,6 +45,7 @@ case $choice in
    sudo apt update
    sudo timedatectl set-timezone Asia/Jakarta
    sudo timedatectl set-ntp on
+   sudo apt install software-properties-common -y
    sudo apt install unzip fping apache2 -y
    systemctl --now enable apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
@@ -66,7 +67,7 @@ case $choice in
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
    mv cacti-release-1.2.28/ /var/www/cacti/
-   chmod -R 755 /var/www/
+   chmod -R 755 /var/www
    mysql -u root cacti < /var/www/cacti/cacti.sql
    cp support/include-config.php /var/www/cacti/include/config.php
    chown -R $USER:$USER /var/www/cacti
