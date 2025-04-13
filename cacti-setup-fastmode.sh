@@ -49,10 +49,10 @@ case $choice in
    systemctl --now enable apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
-   mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
-   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
-   mv /etc/php/8.3/cli/php.ini /etc/php/8.3/cli/php.ini.bak
-   cp support/cli-php.ini /etc/php/8.3/cli/php.ini
+   mv /etc/php/*/apache2/php.ini /etc/php/*/apache2/php.ini.bak
+   cp support/apache2-php.ini /etc/php/*/apache2/php.ini
+   mv /etc/php/*/cli/php.ini /etc/php/*/cli/php.ini.bak
+   cp support/cli-php.ini /etc/php/*/cli/php.ini
    sudo apt install mariadb-server mariadb-client-compat -y
    systemctl enable --now mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
