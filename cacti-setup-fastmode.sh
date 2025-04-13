@@ -18,7 +18,7 @@ echo "    _\ \/ -_) __/ // / _ \  / _// _ ( _-< __/    \/ _ \/ _  / -_)    ";
 echo "   /___/\__/\__/\_,_/ .__/ /_/  \_,_/___|__/_/_/_/\___/\_,_/\__/     ";
 echo "                   /_/                                               ";
 echo "												                                 ";
-echo "   Version: 1.0.3 - 06/01/2025                            	         ";
+echo "   Version: 1.0.4 - 13/04/2025                            	         ";
 echo "   Developer: https://github.com/anggrdwjy              	            ";
 echo "   Support OS : Ubuntu 24.04 - 24.10                      	         ";
 echo "                                                        	            ";
@@ -28,8 +28,9 @@ echo "   Options List :                                		";
 echo "   1) Install Cacti Server 1.2.28 Fastmode     		   ";
 echo "   2) Install Cacti Plugins Weathermap 1.3.0 	      ";
 echo "   3) Install Cacti Spine 1.2.20 		               ";
-echo "   4) Reboot Server	                   		";
-echo "   5) Exit         	                   		";
+echo "   4) Install Virtual Host	                   		";
+echo "   5) Reboot Server	                   		";
+echo "   6) Exit         	                   		";
 echo "   __________________________________________________ ";
 echo "                                                      ";
 read -p "   Enter a number the options listed: " choice;
@@ -45,8 +46,6 @@ case $choice in
    sudo timedatectl set-timezone Asia/Jakarta
    sudo timedatectl set-ntp on
    sudo apt install unzip fping apache2 -y
-   mv /var/www/html/index.html /var/www/html/index.html.bak
-   cp support/html-index.html /var/www/html/index.html
    systemctl --now enable apache2
    sudo apt install php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
@@ -66,11 +65,11 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
-   mv cacti-release-1.2.28/ /var/www/html/cacti/
-   chmod -R 777 /var/www/html/
-   mysql -u root cacti < /var/www/html/cacti/cacti.sql
-   cp support/include-config.php /var/www/html/cacti/include/config.php
-   chown -R www-data:www-data /var/www/html/cacti
+   mv cacti-release-1.2.28/ /var/www/cacti/
+   chmod -R 755 /var/www/
+   mysql -u root cacti < /var/www/cacti/cacti.sql
+   cp support/include-config.php /var/www/cacti/include/config.php
+   chown -R $USER:$USER /var/www/cacti
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
@@ -89,11 +88,11 @@ case $choice in
    then
    sudo apt update
    unzip support/plugin_weathermap-1.3.zip
-   mv plugin_weathermap-1.3/ /var/www/html/cacti/plugins/weathermap/
-   chmod -R 777 /var/www/html/cacti/plugins/
+   mv plugin_weathermap-1.3/ /var/www/cacti/plugins/weathermap/
+   chmod -R 755 /var/www/cacti/plugins/
    systemctl restart cactid
-   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
-   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
+   cp support/weathermap-config.php /var/www/cacti/plugins/weathermap/config.php
+   chown -R www-data:www-data /var/www/cacti/plugins/weathermap/configs
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -124,8 +123,24 @@ case $choice in
    echo "                                                  ";
    fi
    ;;
+
+4) read -p "   Install Virtual Host ? y/n :" -n 1 -r
+   echo "                                                  ";
+   echo "                                                  ";
+   if [[ ! $REPLY =~ ^[Nn]$ ]] 
+   then
+   cp support/virtualhost.conf /etc/apache2/sites-available/virtualhost-cacti.conf
+   sudo a2ensite virtualhost-cacti.conf
+   sudo a2dissite 000-default.conf
+   sudo apache2ctl configtest
+   sudo systemctl restart apache2
+   echo "                                                  ";
+   echo "   ======== Virtual Host Active Done Integration ========	   ";
+   echo "                                                  ";
+   fi
+   ;;
    
-4) read -p "   Reboot Your Server ? y/n :" -n 1 -r
+5) read -p "   Reboot Your Server ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -134,7 +149,7 @@ case $choice in
    fi
    ;;
    
-5) exit
+6) exit
    ;;
 
 *)    echo "Sorry, Your Choice Not Available"
