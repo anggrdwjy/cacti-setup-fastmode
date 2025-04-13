@@ -49,6 +49,8 @@ case $choice in
    sudo apt install unzip fping apache2 -y
    systemctl --now enable apache2
    sudo apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   cp support/apache2-php.ini /etc/php/*/apache2/php.ini
+   cp support/cli-php.ini /etc/php/*/cli/php.ini  
    sudo apt install mariadb-server mariadb-client -y
    systemctl enable --now mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
@@ -56,8 +58,7 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   mv /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.bak
-   cp support/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+   cp support/server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
