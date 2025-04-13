@@ -48,6 +48,8 @@ case $choice in
    sudo apt install software-properties-common -y
    sudo apt install unzip fping apache2 -y
    systemctl --now enable apache2
+   sudo add-apt-repository ppa:ondrej/php
+   sudo apt update
    sudo apt install php8.3 php8.3-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    sudo apt install libapache2-mod-php
    mv /etc/php/8.3/apache2/php.ini /etc/php/8.3/apache2/php.ini.bak
