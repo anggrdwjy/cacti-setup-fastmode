@@ -48,7 +48,7 @@ case $choice in
    sudo apt install software-properties-common -y
    sudo apt install unzip fping apache2 -y
    systemctl --now enable apache2
-   sudo add-apt-repository ppa:ondrej/php
+   sudo add-apt-repository ppa:ondrej/php \
    sudo apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    mv /etc/php/*/apache2/php.ini /etc/php/*/apache2/php.ini.bak
    cp support/apache2-php.ini /etc/php/*/apache2/php.ini
