@@ -25,12 +25,12 @@ echo "                                                        	            ";
 echo "   __________________________________________________	";                                                            
 echo "                                                	   ";
 echo "   Options List :                                		";
-echo "   1) Install Cacti Server 1.2.28 Fastmode     		   ";
+echo "   1) Install Cacti 1.2.28 Fastmode     		         ";
 echo "   2) Install Cacti Plugins Weathermap 1.3.0 	      ";
 echo "   3) Install Cacti Spine 1.2.20 		               ";
-echo "   4) Install Virtual Host	                   		";
-echo "   5) Reboot Server	                   		";
-echo "   6) Exit         	                   		";
+echo "   4) Install Virtual Host (Opsional)             		";
+echo "   5) Reboot Server	                   		         ";
+echo "   6) Exit         	                   		         ";
 echo "   __________________________________________________ ";
 echo "                                                      ";
 read -p "   Enter a number the options listed: " choice;
@@ -93,6 +93,7 @@ case $choice in
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
+   echo "   ======== Enable Plugin (Configuration -> Plugin -> Enable Weathermap) ========	   ";
    echo "                                                  ";
    fi
    ;;
