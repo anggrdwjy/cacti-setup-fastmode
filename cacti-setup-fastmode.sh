@@ -54,6 +54,8 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
+   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+   mysql -u root cacti < /var/www/html/cacti.sql
    wget https://github.com/Cacti/cacti/archive/refs/tags/release/1.2.28.zip
    unzip 1.2.28.zip
    mv cacti-release-1.2.28 /var/www/html/cacti
