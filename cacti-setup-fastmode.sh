@@ -60,15 +60,14 @@ case $choice in
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
    chmod -R 777 /var/www/html/
-   mv /etc/php/*/apache2/php.ini apache2-php.ini.bak
-   cp support/apache2-php.ini /etc/php/*/apache2/php.ini
-   mv /etc/php/*/cli/php.ini cli-php.ini.bak
-   cp support/cli-php.ini /etc/php/*/cli/php.ini 
+   mv /etc/php/8.3/apache2/php.ini apache2-php.ini.bak
+   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   mv /etc/php/8.3/cli/php.ini cli-php.ini.bak
+   cp support/cli-php.ini /etc/php/8.3/cli/php.ini 
    mv /var/www/html/cacti/include/config.php include-config.php.bak
    cp support/include-config.php /var/www/html/cacti/include/config.php
    mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
-   cp support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-   mv /etc/systemd/system/cactid.service system-cactid.service.bak
+   cp support/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl enable --now cactid
