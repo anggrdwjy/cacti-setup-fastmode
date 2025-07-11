@@ -117,7 +117,6 @@ case $choice in
    ./configure --prefix=/opt/spine
    cd ..
    rm 1.2.20.zip | rm -r spine-release-1.2.20
-   mv /usr/local/spine/etc/spine.conf /home/etc-spine.conf
    cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
    chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
