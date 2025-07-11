@@ -54,8 +54,11 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   unzip support/cacti-release-1.2.28.zip
-   mv cacti-release-1.2.28 /var/www/html/cacti
+   cd /var/www/html/
+   wget https://github.com/Cacti/cacti/archive/refs/tags/release/1.2.28.zip
+   unzip 1.2.28.zip
+   mv cacti-release-1.2.28 cacti
+   rm 1.2.28.zip
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
@@ -85,12 +88,13 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   unzip support/plugin-weathermap-1.3.zip
-   mv plugin-weathermap-1.3 /var/www/html/cacti/plugins/weathermap 
-   chown -R www-data:www-data /var/www/html/cacti/plugins/
-   chmod -R 777 /var/www/html/cacti/plugins/
-   mv /var/www/html/cacti/plugins/weathermap/config.php weathermap-config.php.bak
-   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
+   cd /var/www/html/cacti/plugins
+   wget https://github.com/Cacti/plugin_weathermap/archive/refs/tags/v1.3.zip
+   unzip v1.3.zip
+   mv plugin_weathermap-1.3 weathermap 
+   rm v1.3.zip
+   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
+   chmod -R 777 /var/www/html/cacti/plugins/weathermap
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
