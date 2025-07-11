@@ -61,7 +61,9 @@ case $choice in
    sudo apt install snmp snmpd rrdtool -y
    rm /var/www/html
    unzip support/cacti-release-1.2.28.zip
-   mv cacti-release-1.2.28/ /var/www/html
+   mv cacti-release-1.2.28 html
+   cp html /var/www
+   rm -r html
    chmod -R 777 /var/www
    mysql -u root cacti < /var/www/html/cacti.sql
    cp support/include-config.php /var/www/html/include/config.php
@@ -82,13 +84,14 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   sudo apt update
-   unzip support/plugin_weathermap-1.3.zip
-   mv plugin_weathermap-1.3/ /var/www/html/plugins/weathermap
-   chmod -R 777 /var/www/html/plugins/
-   systemctl restart cactid
+   unzip support/plugin-weathermap-1.3.zip
+   mv plugin-weathermap-1.3 weathermap 
+   cp weathermap /var/www/html/plugins/
+   rm -r weathermap
+   mv /var/www/html/plugins/weathermap/config.php /home/config.php.bak
    cp support/weathermap-config.php /var/www/html/plugins/weathermap/config.php
    chown -R www-data:www-data /var/www/html/plugins/weathermap/configs
+   chmod -R 777 /var/www/html/plugins/
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -102,9 +105,8 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   sudo apt update
-   sudo apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
-   unzip support/spine-release-1.2.20.zip
+   apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
+   unzip support/spine-release-1.2.20.zip 
    cd spine-release-1.2.20
    sudo ./bootstrap
    sudo ./configure
@@ -112,9 +114,11 @@ case $choice in
    sudo make install
    sudo ./configure --prefix=/opt/spine
    cd ..
-   cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
-   chown root:root /usr/local/spine/bin/spine
+   rm -r spine-release-1.2.20
+   chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
+   mv /usr/local/spine/etc/spine.conf /home/spine.conf.bak
+   cp support/spine.conf /usr/local/spine/etc/
    echo "                                                  ";
    echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
