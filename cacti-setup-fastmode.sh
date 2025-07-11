@@ -67,7 +67,7 @@ case $choice in
    mv /var/www/html/cacti/include/config.php include-config.php.bak
    cp support/include-config.php /var/www/html/cacti/include/config.php
    mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
-   cp support/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+   cp support/mariadb-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl enable --now cactid
