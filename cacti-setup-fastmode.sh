@@ -86,7 +86,7 @@ case $choice in
    then
    unzip support/plugin-weathermap-1.3.zip
    mv plugin-weathermap-1.3 /var/www/html/cacti/plugins/weathermap 
-   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
+   chown -R www-data:www-data /var/www/html/cacti/plugins/
    chmod -R 777 /var/www/html/cacti/plugins/
    mv /var/www/html/cacti/plugins/weathermap/config.php weathermap-config.php.bak
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
