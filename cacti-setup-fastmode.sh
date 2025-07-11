@@ -61,11 +61,11 @@ case $choice in
    chown -R www-data:www-data /var/www/html/cacti
    chmod -R 777 /var/www/html/
    mv /etc/php/8.3/apache2/php.ini apache2-php.ini.bak
-   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
    mv /etc/php/8.3/cli/php.ini cli-php.ini.bak
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
+   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini 
    cp support/include-config.php /var/www/html/cacti/include/config.php
-   mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
    cp support/mariadb-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
