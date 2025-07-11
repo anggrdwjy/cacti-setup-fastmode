@@ -85,14 +85,13 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   cd /var/www/html/cacti/plugins
    wget https://github.com/Cacti/plugin_weathermap/archive/refs/tags/v1.3.zip
    unzip v1.3.zip
-   mv plugin_weathermap-1.3 weathermap 
+   mv plugin_weathermap-1.3 /var/www/html/cacti/plugins/weathermap 
    rm v1.3.zip
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
    chmod -R 777 /var/www/html/cacti/plugins/weathermap
-   mv support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
+   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -109,18 +108,17 @@ case $choice in
    wget https://github.com/Cacti/spine/archive/refs/tags/release/1.2.20.zip
    unzip 1.2.20.zip
    cd spine-release-1.2.20
-   sudo ./bootstrap
-   sudo ./configure
-   sudo make
-   sudo make install
-   sudo ./configure --prefix=/opt/spine
+   ./bootstrap
+   ./configure
+   make
+   make install
+   ./configure --prefix=/opt/spine
    cd ..
-   rm 1.2.20.zip
-   rm -r spine-release-1.2.20
+   rm 1.2.20.zip | rm -r spine-release-1.2.20
+   mv /usr/local/spine/etc/spine.conf /home/etc-spine.conf
+   cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
    chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
-   rm /usr/local/spine/etc/spine.conf
-   mv support/etc-spine.conf /usr/local/spine/etc/spine.conf
    echo "                                                  ";
    echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
