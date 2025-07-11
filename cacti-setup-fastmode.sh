@@ -44,34 +44,30 @@ case $choice in
    apt update
    timedatectl set-timezone Asia/Jakarta
    timedatectl set-ntp on
-   apt install software-properties-common -y
-   apt install unzip fping apache2 -y
+   apt install software-properties-common
+   apt install unzip fping apache2 mariadb-server mariadb-client mariadb-client-compat snmp snmpd rrdtool -y
    apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
-   apt install mariadb-server mariadb-client mariadb-client-compat snmp snmpd rrdtool -y
    systemctl enable --now mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
    mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   cd /var/www/html
    wget https://github.com/Cacti/cacti/archive/refs/tags/release/1.2.28.zip
    unzip 1.2.28.zip
-   mv cacti-release-1.2.28 cacti
+   mv cacti-release-1.2.28 /var/www/html/cacti
    rm 1.2.28.zip
-   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-   mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
    chmod -R 777 /var/www/html/cacti
-   rm /etc/php/8.3/apache2/php.ini
-   mv support/apache2-php.ini /etc/php/8.3/apache2/php.ini
-   rm /etc/php/8.3/cli/php.ini
-   mv support/cli-php.ini /etc/php/8.3/cli/php.ini 
-   mv support/include-config.php /var/www/html/cacti/include/config.php
-   rm /etc/mysql/mariadb.conf.d/50-server.cnf
-   mv support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-   mv support/system-cactid.service /etc/systemd/system/cactid.service
+   mv /etc/php/8.3/apache2/php.ini /home/apache2-php.ini
+   mv /etc/php/8.3/cli/php.ini /home/cli-php.ini
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf /home/mariadb-50server.cnf
+   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   cp support/cli-php.ini /etc/php/8.3/cli/php.ini
+   cp support/include-config.php /var/www/html/cacti/include/config.php
+   cp support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+   cp support/system-cactid.service /etc/system/system/cactid.service
    touch /etc/default/cactid
    systemctl enable --now cactid
    systemctl restart cactid
