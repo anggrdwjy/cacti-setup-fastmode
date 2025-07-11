@@ -47,6 +47,7 @@ case $choice in
    apt install software-properties-common -y
    apt install unzip fping apache2 -y
    apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
    apt install mariadb-server mariadb-client mariadb-client-compat snmp snmpd rrdtool -y
    systemctl enable --now mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
@@ -54,7 +55,7 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   cd /var/www/html/
+   cd /var/www/html
    wget https://github.com/Cacti/cacti/archive/refs/tags/release/1.2.28.zip
    unzip 1.2.28.zip
    mv cacti-release-1.2.28 cacti
@@ -63,12 +64,12 @@ case $choice in
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
    chmod -R 777 /var/www/html/cacti
-   mv /etc/php/8.3/apache2/php.ini apache2-php.ini.bak
-   mv /etc/php/8.3/cli/php.ini cli-php.ini.bak
-   mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
+   rm /etc/php/8.3/apache2/php.ini
    cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   rm /etc/php/8.3/cli/php.ini
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini 
    cp support/include-config.php /var/www/html/cacti/include/config.php
+   rm /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
@@ -95,6 +96,7 @@ case $choice in
    rm v1.3.zip
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
    chmod -R 777 /var/www/html/cacti/plugins/weathermap
+   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -108,7 +110,6 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
    wget https://github.com/Cacti/spine/archive/refs/tags/release/1.2.20.zip
    unzip 1.2.20.zip
    cd spine-release-1.2.20
@@ -122,8 +123,8 @@ case $choice in
    rm -r spine-release-1.2.20
    chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
-   mv /usr/local/spine/etc/spine.conf /home/spine.conf.bak
-   cp support/spine.conf /usr/local/spine/etc/
+   rm /usr/local/spine/etc/spine.conf
+   cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
    echo "                                                  ";
    echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
