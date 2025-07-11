@@ -28,9 +28,8 @@ echo "   Options List :                                		";
 echo "   1) Install Cacti 1.2.28 Fastmode     		         ";
 echo "   2) Install Cacti Plugins Weathermap 1.3.0 	      ";
 echo "   3) Install Cacti Spine 1.2.20 		               ";
-echo "   4) Install Virtual Host (Opsional)             		";
-echo "   5) Reboot Server	                   		         ";
-echo "   6) Exit         	                   		         ";
+echo "   4) Reboot Server	                   		         ";
+echo "   5) Exit         	                   		         ";
 echo "   __________________________________________________ ";
 echo "                                                      ";
 read -p "   Enter a number the options listed: " choice;
@@ -42,13 +41,12 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   sudo apt update
-   sudo timedatectl set-timezone Asia/Jakarta
-   sudo timedatectl set-ntp on
-   sudo apt install software-properties-common -y
-   sudo apt install unzip fping apache2 -y
-   systemctl --now enable apache2
-   sudo apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   apt update
+   timedatectl set-timezone Asia/Jakarta
+   timedatectl set-ntp on
+   apt install software-properties-common -y
+   apt install unzip fping apache2 -y
+   apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
    cp support/apache2-php.ini /etc/php/*/apache2/php.ini
    cp support/cli-php.ini /etc/php/*/cli/php.ini  
    sudo apt install mariadb-server mariadb-client -y
@@ -62,11 +60,11 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    sudo apt install snmp snmpd rrdtool -y
    unzip support/cacti-release-1.2.28.zip
-   mv cacti-release-1.2.28/ /var/www/html/cacti/
-   chmod -R 777 /var/www/html/
-   mysql -u root cacti < /var/www/html/cacti/cacti.sql
-   cp support/include-config.php /var/www/html/cacti/include/config.php
-   chown -R www-data:www-data /var/www/html/cacti
+   mv cacti-release-1.2.28/ /var/www/html
+   chmod -R 777 /var/www
+   mysql -u root cacti < /var/www/html/cacti.sql
+   cp support/include-config.php /var/www/html/include/config.php
+   chown -R www-data:www-data /var/www/html
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
@@ -85,11 +83,11 @@ case $choice in
    then
    sudo apt update
    unzip support/plugin_weathermap-1.3.zip
-   mv plugin_weathermap-1.3/ /var/www/html/cacti/plugins/weathermap/
-   chmod -R 777 /var/www/html/cacti/plugins/
+   mv plugin_weathermap-1.3/ /var/www/html/plugins/weathermap
+   chmod -R 777 /var/www/html/plugins/
    systemctl restart cactid
-   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
-   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
+   cp support/weathermap-config.php /var/www/html/plugins/weathermap/config.php
+   chown -R www-data:www-data /var/www/html/plugins/weathermap/configs
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -121,24 +119,8 @@ case $choice in
    echo "                                                  ";
    fi
    ;;
-
-4) read -p "   Install Virtual Host ? y/n :" -n 1 -r
-   echo "                                                  ";
-   echo "                                                  ";
-   if [[ ! $REPLY =~ ^[Nn]$ ]] 
-   then
-   cp support/virtualhost.conf /etc/apache2/sites-available/virtualhost-cacti.conf
-   sudo a2ensite virtualhost-cacti.conf
-   sudo a2dissite 000-default.conf
-   sudo apache2ctl configtest
-   sudo systemctl restart apache2
-   echo "                                                  ";
-   echo "   ======== Virtual Host Active Done Integration ========	   ";
-   echo "                                                  ";
-   fi
-   ;;
    
-5) read -p "   Reboot Your Server ? y/n :" -n 1 -r
+4) read -p "   Reboot Your Server ? y/n :" -n 1 -r
    echo "                                                  ";
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
@@ -147,7 +129,7 @@ case $choice in
    fi
    ;;
    
-6) exit
+5) exit
    ;;
 
 *)    echo "Sorry, Your Choice Not Available"
