@@ -59,7 +59,7 @@ case $choice in
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
-   chmod -R 777 /var/www/html/
+   chmod -R 777 /var/www/html/cacti
    mv /etc/php/8.3/apache2/php.ini apache2-php.ini.bak
    mv /etc/php/8.3/cli/php.ini cli-php.ini.bak
    mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
