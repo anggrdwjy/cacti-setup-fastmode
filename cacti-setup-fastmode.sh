@@ -72,6 +72,7 @@ case $choice in
    systemctl enable --now cactid
    systemctl restart cactid
    systemctl daemon-reload
+   systemctl restart mariadb
    systemctl restart apache2
    echo "                                                  ";
    echo "   ======== Cacti Success Installing Done ======== 	   ";
