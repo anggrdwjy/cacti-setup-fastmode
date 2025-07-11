@@ -41,7 +41,7 @@ case $choice in
    echo "                                                  ";
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
-   apt update
+   apt update -y
    timedatectl set-timezone Asia/Jakarta
    timedatectl set-ntp on
    apt install software-properties-common
@@ -67,7 +67,7 @@ case $choice in
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini
    cp support/include-config.php /var/www/html/cacti/include/config.php
    cp support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-   cp support/system-cactid.service /etc/system/system/cactid.service
+   cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl enable --now cactid
    systemctl restart cactid
