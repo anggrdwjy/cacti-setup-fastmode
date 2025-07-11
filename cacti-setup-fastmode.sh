@@ -54,21 +54,22 @@ case $choice in
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
-   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    unzip support/cacti-release-1.2.28.zip
    mv cacti-release-1.2.28 /var/www/html/cacti
-   chmod -R 777 /var/www/html/cacti
+   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    mysql -u root cacti < /var/www/html/cacti/cacti.sql
    chown -R www-data:www-data /var/www/html/cacti
+   chmod -R 777 /var/www/html/
    cp support/apache2-php.ini /etc/php/*/apache2/php.ini
    cp support/cli-php.ini /etc/php/*/cli/php.ini 
    cp support/include-config.php /var/www/html/cacti/include/config.php
    cp support/server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    cp support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
-   systemctl --now enable cactid
+   systemctl enable --now cactid
    systemctl restart cactid
    systemctl daemon-reload
+   systemctl restart apache2
    echo "                                                  ";
    echo "   ======== Cacti Success Installing Done ======== 	   ";
    echo "                                                  ";
