@@ -109,7 +109,8 @@ case $choice in
    if [[ ! $REPLY =~ ^[Nn]$ ]] 
    then
    apt install build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev -y
-   unzip support/spine-release-1.2.20.zip 
+   wget https://github.com/Cacti/spine/archive/refs/tags/release/1.2.20.zip
+   unzip 1.2.20.zip
    cd spine-release-1.2.20
    sudo ./bootstrap
    sudo ./configure
@@ -117,6 +118,7 @@ case $choice in
    sudo make install
    sudo ./configure --prefix=/opt/spine
    cd ..
+   rm 1.2.20.zip
    rm -r spine-release-1.2.20
    chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
