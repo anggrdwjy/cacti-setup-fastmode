@@ -59,6 +59,7 @@ case $choice in
    cp support/server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
    sudo apt install snmp snmpd rrdtool -y
+   rm /var/www/html
    unzip support/cacti-release-1.2.28.zip
    mv cacti-release-1.2.28/ /var/www/html
    chmod -R 777 /var/www
