@@ -30,8 +30,8 @@
  * the apache user, but is not in the Cacti base path.  Ensure that
  * the path's end with a '/'.
  */
-$configdir = '/var/www/html/cacti/plugins/weathermap/configs/';
-$outputdir = '/var/www/html/cacti/plugins/weathermap/output/';
+$configdir = '/var/www/html/plugins/weathermap/configs/';
+$outputdir = '/var/www/html/plugins/weathermap/output/';
 
 /* we will define them here */
 if (!defined('WM_CONFIGDIR')) {
