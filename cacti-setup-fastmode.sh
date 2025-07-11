@@ -64,7 +64,6 @@ case $choice in
    cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
    mv /etc/php/8.3/cli/php.ini cli-php.ini.bak
    cp support/cli-php.ini /etc/php/8.3/cli/php.ini 
-   mv /var/www/html/cacti/include/config.php include-config.php.bak
    cp support/include-config.php /var/www/html/cacti/include/config.php
    mv /etc/mysql/mariadb.conf.d/50-server.cnf mariadb-50server.cnf.bak
    cp support/mariadb-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
