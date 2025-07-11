@@ -61,7 +61,7 @@ case $choice in
    mv cacti-release-1.2.28 /var/www/html/cacti
    rm 1.2.28.zip
    chown -R www-data:www-data /var/www/html/cacti
-   chmod -R 777 /var/www/html/cacti
+   chmod -R 755 /var/www/html/cacti
    mv /etc/php/8.3/apache2/php.ini /home/apache2-php.ini
    mv /etc/php/8.3/cli/php.ini /home/cli-php.ini
    mv /etc/mysql/mariadb.conf.d/50-server.cnf /home/mariadb-50server.cnf
@@ -92,7 +92,7 @@ case $choice in
    mv plugin_weathermap-1.3 /var/www/html/cacti/plugins/weathermap 
    rm v1.3.zip
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
-   chmod -R 777 /var/www/html/cacti/plugins/weathermap
+   chmod -R 755 /var/www/html/cacti/plugins/weathermap
    cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    systemctl restart cactid
    echo "                                                  ";
