@@ -65,13 +65,13 @@ case $choice in
    chown -R www-data:www-data /var/www/html/cacti
    chmod -R 777 /var/www/html/cacti
    rm /etc/php/8.3/apache2/php.ini
-   cp support/apache2-php.ini /etc/php/8.3/apache2/php.ini
+   mv support/apache2-php.ini /etc/php/8.3/apache2/php.ini
    rm /etc/php/8.3/cli/php.ini
-   cp support/cli-php.ini /etc/php/8.3/cli/php.ini 
-   cp support/include-config.php /var/www/html/cacti/include/config.php
+   mv support/cli-php.ini /etc/php/8.3/cli/php.ini 
+   mv support/include-config.php /var/www/html/cacti/include/config.php
    rm /etc/mysql/mariadb.conf.d/50-server.cnf
-   cp support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-   cp support/system-cactid.service /etc/systemd/system/cactid.service
+   mv support/mariadb-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+   mv support/system-cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl enable --now cactid
    systemctl restart cactid
@@ -96,7 +96,7 @@ case $choice in
    rm v1.3.zip
    chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap
    chmod -R 777 /var/www/html/cacti/plugins/weathermap
-   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
+   mv support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
@@ -124,7 +124,7 @@ case $choice in
    chown -R root:root /usr/local/spine/bin/spine
    chmod +s /usr/local/spine/bin/spine
    rm /usr/local/spine/etc/spine.conf
-   cp support/etc-spine.conf /usr/local/spine/etc/spine.conf
+   mv support/etc-spine.conf /usr/local/spine/etc/spine.conf
    echo "                                                  ";
    echo "   ======== Spine Done Integration ========	   ";
    echo "                                                  ";
