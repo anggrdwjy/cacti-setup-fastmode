@@ -10,7 +10,7 @@ Before using this program, make sure to update repository `sudo apt update` and 
 * Cacti Spine 1.2.20
 * Plugins Cacti Weathermap 1.3.0
 
-## Support OS
+## Testing OS
 * Ubuntu 24.04
 * Ubuntu 24.10
 
