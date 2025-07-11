@@ -47,27 +47,27 @@ case $choice in
    apt install software-properties-common -y
    apt install unzip fping apache2 -y
    apt install php libapache2-mod-php php-{mysql,curl,net-socket,gd,intl,pear,imap,memcache,pspell,tidy,xmlrpc,snmp,mbstring,gmp,json,xml,common,ldap} -y
+   apt install mariadb-server mariadb-client mariadb-client-compat snmp snmpd rrdtool -y
+   mv /etc/php/*/apache2/php.ini apache-php.ini.bak
    cp support/apache2-php.ini /etc/php/*/apache2/php.ini
+   mv /etc/php/*/cli/php.ini cli-php.ini.bak
    cp support/cli-php.ini /etc/php/*/cli/php.ini  
-   sudo apt install mariadb-server mariadb-client -y
    systemctl enable --now mariadb
    mysql -e "CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"            
    mysql -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'baseball';"
    mysql -e "GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;"
    mysql -e "ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
    mysql -e "FLUSH PRIVILEGES;"
+   mv /etc/mysql/mariadb.conf.d/50-server.cnf 50-server.cnf.bak
    cp support/server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
    mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-   sudo apt install snmp snmpd rrdtool -y
    rm /var/www/html
    unzip support/cacti-release-1.2.28.zip
-   mv cacti-release-1.2.28 html
-   cp html /var/www
-   rm -r html
-   chmod -R 777 /var/www
-   mysql -u root cacti < /var/www/html/cacti.sql
-   cp support/include-config.php /var/www/html/include/config.php
-   chown -R www-data:www-data /var/www/html
+   mv cacti-release-1.2.28 /var/www/html/cacti
+   chmod -R 777 /var/www/html
+   mysql -u root cacti < /var/www/html/cacti/cacti.sql
+   cp support/include-config.php /var/www/html/cacti/include/config.php
+   chown -R www-data:www-data /var/www/html/cacti
    cp support/cactid.service /etc/systemd/system/cactid.service
    touch /etc/default/cactid
    systemctl --now enable cactid
@@ -86,12 +86,12 @@ case $choice in
    then
    unzip support/plugin-weathermap-1.3.zip
    mv plugin-weathermap-1.3 weathermap 
-   cp weathermap /var/www/html/plugins/
+   cp weathermap /var/www/html/cacti/plugins/
    rm -r weathermap
-   mv /var/www/html/plugins/weathermap/config.php /home/config.php.bak
-   cp support/weathermap-config.php /var/www/html/plugins/weathermap/config.php
-   chown -R www-data:www-data /var/www/html/plugins/weathermap/configs
-   chmod -R 777 /var/www/html/plugins/
+   mv /var/www/html/cacti/plugins/weathermap/config.php /home/config.php.bak
+   cp support/weathermap-config.php /var/www/html/cacti/plugins/weathermap/config.php
+   chown -R www-data:www-data /var/www/html/cacti/plugins/weathermap/configs
+   chmod -R 777 /var/www/html/cacti/plugins/
    systemctl restart cactid
    echo "                                                  ";
    echo "   ======== Plugin Weathermap Done Integration ========	   ";
